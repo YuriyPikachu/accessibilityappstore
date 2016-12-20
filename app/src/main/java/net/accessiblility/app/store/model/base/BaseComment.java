@@ -1,19 +1,17 @@
 package net.accessiblility.app.store.model.base;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-
-
-
 import net.accessiblility.app.store.model.User;
 import net.accessiblility.app.store.model.Version;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
 
 
 
 public abstract class BaseComment implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
@@ -21,30 +19,27 @@ public abstract class BaseComment implements Serializable {
 	private Timestamp contentTime;
 	private User user;
 	private int thumbsUp;
+	private int score;
 	private Version version;
-	
-	public BaseComment(Integer id, String content, int thumbsUp) {
-		super();
-		this.id = id;
-		this.content = content;
-		this.thumbsUp = thumbsUp;
-	}
+
 	public BaseComment() {
 		super();
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((version == null) ? 0 : version.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + ((contentTime == null) ? 0 : contentTime.hashCode());
 		result = prime * result + id;
+		result = prime * result + score;
 		result = prime * result + thumbsUp;
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((version == null) ? 0 : version.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -54,16 +49,6 @@ public abstract class BaseComment implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		BaseComment other = (BaseComment) obj;
-		if (version == null) {
-			if (other.version != null)
-				return false;
-		} else if (!version.equals(other.version))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
 		if (content == null) {
 			if (other.content != null)
 				return false;
@@ -76,7 +61,19 @@ public abstract class BaseComment implements Serializable {
 			return false;
 		if (id != other.id)
 			return false;
+		if (score != other.score)
+			return false;
 		if (thumbsUp != other.thumbsUp)
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		if (version == null) {
+			if (other.version != null)
+				return false;
+		} else if (!version.equals(other.version))
 			return false;
 		return true;
 	}
@@ -113,27 +110,35 @@ public abstract class BaseComment implements Serializable {
 	public void setContentTime(Timestamp contentTime) {
 		this.contentTime = contentTime;
 	}
-	public BaseComment(int id, String content, Timestamp contentTime, User user, int thumbsUp,
-			Version version) {
+
+	public Version getVersion() {
+		return version;
+	}
+
+
+	public void setVersion(Version version) {
+		this.version = version;
+	}
+
+	public BaseComment(int id, String content, Timestamp contentTime, User user, int thumbsUp, int score,
+					   Version version) {
 		super();
 		this.id = id;
 		this.content = content;
 		this.contentTime = contentTime;
 		this.user = user;
 		this.thumbsUp = thumbsUp;
-		this.version = version;
-	}
-	
-	public Version getVersion() {
-		return version;
-	}
-	
-
-	public void setVersion(Version version) {
+		this.score = score;
 		this.version = version;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
+
 }
